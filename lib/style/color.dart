@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
-Color eczaneLightGray =  const Color(0x00cefcff);
-Color eczaneRed = const Color(0x00FF2B2B);
-Color eczaneDarkRed = const Color(0x004B0303);
+Color eczaneLightGray = Colors.grey[350]!;
+Color eczaneRed = Colors.red[200]!;
+Color eczaneDarkRed = Colors.red[900]!;

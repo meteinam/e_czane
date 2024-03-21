@@ -1,4 +1,5 @@
-import 'package:e_czane/style/color.dart';
+import 'package:e_czane/style/button_style.dart';
+import 'package:e_czane/style/text_sytle.dart';
 import 'package:flutter/material.dart';
 
 class GridViewButton extends StatelessWidget {
@@ -9,14 +10,12 @@ class GridViewButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {},
-      child: Text(title),
       style: button1,
+      child: Text(
+        title,
+        style: textStyleSmall,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }
-
-final ButtonStyle button1 = ElevatedButton.styleFrom(
-    maximumSize: const Size(120, 120),
-    backgroundColor: eczaneRed,
-    shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(30))));

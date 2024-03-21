@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Eczane',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: eczaneRed),
+        colorScheme: ColorScheme.fromSeed(seedColor: eczaneDarkRed),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Eczane'),
@@ -31,10 +31,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
-    return EczaneScaffold();
+    return const EczaneScaffold();
   }
 }
