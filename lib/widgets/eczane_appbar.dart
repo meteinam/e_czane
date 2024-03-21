@@ -7,8 +7,7 @@ class EczaneAppbar extends StatefulWidget implements PreferredSizeWidget{
   State<EczaneAppbar> createState() => __EczaneAppbarStateState();
   
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class __EczaneAppbarStateState extends State<EczaneAppbar> {
@@ -16,14 +15,19 @@ class __EczaneAppbarStateState extends State<EczaneAppbar> {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      leading: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.arrow_back),
+      ),
+      title: const Text('Eczane'),
       actions: [
         IconButton(
           onPressed: () {},
-          icon: const Icon(Icons.search),
+          icon: const Icon(Icons.message_rounded),
         ),
         IconButton(
           onPressed: () {},
-          icon: const Icon(Icons.notifications),
+          icon: const Icon(Icons.settings_rounded),
         ),
       ],
     );
