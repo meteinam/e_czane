@@ -1,5 +1,5 @@
+import 'package:e_czane/screens/welcome_page.dart';
 import 'package:e_czane/style/color.dart';
-import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,6 +33,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const EczaneScaffold();
+    return const WelcomePage();
   }
 }

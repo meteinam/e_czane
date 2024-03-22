@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 
 final textStyleSmall = TextStyle(
   fontSize: 20,
-  color: eczaneLightGray,
+  color: eczaneLightGrey,
 );
 
 final textStyleMid = TextStyle(
-  fontSize: 30,
-  color: eczaneLightGray,
+  fontSize: 25,
+  color: eczaneLightGrey,
 );
 
 final textStyleBig = TextStyle(
   fontSize: 40,
-  color: eczaneLightGray,
+  color: eczaneLightGrey,
 );

@@ -12,17 +12,35 @@ class _EczaneListViewState extends State<EczaneListView> {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
-      crossAxisCount: 2, // 2 sütunlu GridViewButtond
-      mainAxisSpacing: 10.0, // Dikey boşluk
-      crossAxisSpacing: 10.0, // Yatay boşluk
+      crossAxisCount: 2,
+      mainAxisSpacing: 10.0,
+      crossAxisSpacing: 10.0,
       padding: const EdgeInsets.all(10.0),
-      children: const <Widget>[
-        GridViewButton(title: 'Bilgilerim'),
-        GridViewButton(title: 'İlaçlarım'),
-        GridViewButton(title: 'Yakınımdaki Eczaneler'),
-        GridViewButton(title: 'Nöbetçi Eczaneler'),
-        GridViewButton(title: 'İlaç Araması'),
-        GridViewButton(title: 'Reçete Talebi'),
+      children: <Widget>[
+        GridViewButton(
+          title: 'Bilgilerim',
+          onPressed: () {},
+        ),
+        GridViewButton(
+          title: 'İlaçlarım',
+          onPressed: () {},
+        ),
+        GridViewButton(
+          title: 'Yakınımdaki Eczaneler',
+          onPressed: () {},
+        ),
+        GridViewButton(
+          title: 'Nöbetçi Eczaneler',
+          onPressed: () {},
+        ),
+        GridViewButton(
+          title: 'İlaç Araması',
+          onPressed: () {},
+        ),
+        GridViewButton(
+          title: 'Reçete Talebi',
+          onPressed: () {},
+        ),
       ],
     );
   }

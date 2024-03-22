@@ -19,7 +19,7 @@ class __EczaneAppbarStateState extends State<EczaneAppbar> {
       backgroundColor: Theme.of(context).colorScheme.primary,
       leading: IconButton(
         onPressed: () {},
-        icon: Icon(Icons.arrow_back, color: eczaneLightGray),
+        icon: Icon(Icons.arrow_back, color: eczaneLightGrey),
       ),
       title: Text(
         'Eczane',
@@ -28,11 +28,11 @@ class __EczaneAppbarStateState extends State<EczaneAppbar> {
       actions: [
         IconButton(
           onPressed: () {},
-          icon: Icon(Icons.message_rounded, color: eczaneLightGray),
+          icon: Icon(Icons.message_rounded, color: eczaneLightGrey),
         ),
         IconButton(
           onPressed: () {},
-          icon: Icon(Icons.settings_rounded, color: eczaneLightGray),
+          icon: Icon(Icons.settings_rounded, color: eczaneLightGrey),
         ),
       ],
     );

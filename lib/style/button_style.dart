@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 
 final ButtonStyle button1 = ElevatedButton.styleFrom(
     maximumSize: const Size(120, 120),
-    backgroundColor: eczaneRed,
+    backgroundColor: eczaneDarkGrey,
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(30))));
+
+final ButtonStyle button2 = ElevatedButton.styleFrom(
+    minimumSize: const Size(200, 40),
+    maximumSize: const Size(200, 40),
+    backgroundColor: eczaneDarkGrey,
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(120))));
