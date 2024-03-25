@@ -13,3 +13,10 @@ final ButtonStyle button2 = ElevatedButton.styleFrom(
     backgroundColor: eczaneDarkGrey,
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(120))));
+
+final ButtonStyle button3 = ElevatedButton.styleFrom(
+    minimumSize: const Size(150, 40),
+    maximumSize: const Size(150, 40),
+    backgroundColor: eczaneDarkGrey,
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(120))));

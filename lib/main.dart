@@ -1,5 +1,9 @@
-import 'package:e_czane/screens/welcome_page.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:e_czane/screens/login_page.dart';
+import 'package:e_czane/screens/main_page.dart';
+import 'package:e_czane/screens/profile_page.dart';
 import 'package:e_czane/style/color.dart';
+import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,8 +35,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int index = 1;
+  final screens = [
+    EczaneLoginPage(),
+    const EczaneMainPage(),
+    const EczaneProfilePage(),
+  ];
+  final items = <Widget>[
+    const Icon(Icons.search_rounded, size: 30),
+    const Icon(Icons.home, size: 30),
+    const Icon(Icons.person, size: 30),
+  ];
   @override
   Widget build(BuildContext context) {
-    return const WelcomePage();
+    return EczaneScaffold(
+      widget: screens[index],
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          iconTheme: IconThemeData(color: eczaneLightGrey),
+        ),
+        child: CurvedNavigationBar(
+          height: 50,
+          backgroundColor: Colors.transparent,
+          color: eczaneDarkGrey,
+          items: items,
+          index: index,
+          onTap: (index) {
+            setState(() {
+              this.index = index;
+            });
+          },
+        ),
+      ),
+    );
   }
 }

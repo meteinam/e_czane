@@ -25,14 +25,15 @@ class GridViewButton extends StatelessWidget {
 class EczaneActionButton extends StatelessWidget {
   final String title;
   final void Function() onPressed;
+  final ButtonStyle? style;
   const EczaneActionButton(
-      {super.key, required this.title, required this.onPressed});
+      {super.key, required this.title, required this.onPressed, this.style});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: button2,
+      style: style ?? button1,
       child: Text(
         title,
         style: textStyleMid,

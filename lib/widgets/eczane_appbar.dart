@@ -17,9 +17,8 @@ class __EczaneAppbarStateState extends State<EczaneAppbar> {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      leading: IconButton(
-        onPressed: () {},
-        icon: Icon(Icons.arrow_back, color: eczaneLightGrey),
+      leading: BackButton(
+        color: eczaneLightGrey,
       ),
       title: Text(
         'Eczane',

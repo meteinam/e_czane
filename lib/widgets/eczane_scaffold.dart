@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class EczaneScaffold extends StatefulWidget {
   final Widget widget;
   final PreferredSizeWidget? appBar;
-  const EczaneScaffold({super.key, required this.widget, this.appBar});
+  final Widget? bottomNavigationBar;
+  const EczaneScaffold(
+      {super.key, required this.widget, this.appBar, this.bottomNavigationBar});
 
   @override
   State<EczaneScaffold> createState() => _EczaneScaffoldState();
@@ -13,8 +15,10 @@ class _EczaneScaffoldState extends State<EczaneScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBody: true,
         resizeToAvoidBottomInset: false,
         appBar: widget.appBar,
+        bottomNavigationBar: widget.bottomNavigationBar,
         body: Center(
           child: Stack(
             alignment: Alignment.center,

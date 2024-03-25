@@ -1,10 +1,15 @@
 import 'package:e_czane/constants.dart';
+import 'package:e_czane/style/button_style.dart';
+import 'package:e_czane/widgets/eczane_buttons.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:e_czane/widgets/eczane_textfield.dart';
 import 'package:flutter/material.dart';
 
 class EczaneLoginPage extends StatelessWidget {
-  const EczaneLoginPage({super.key});
+  EczaneLoginPage({super.key});
+
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +17,28 @@ class EczaneLoginPage extends StatelessWidget {
         widget: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        EczaneTextField(hint: "e-mail"),
+        EczaneTextField(
+          hint: "e-mail",
+          controller: userNameController,
+          keyboardType: TextInputType.emailAddress,
+        ),
         eczaneSmallPadding,
-        EczaneTextField(hint: "password")
+        EczaneTextField(
+          hint: "password",
+          controller: passwordController,
+          isObscured: true,
+        ),
+        eczaneSmallPadding,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            EczaneActionButton(
+                title: "Giriş Yap", onPressed: () {}, style: button3),
+            eczaneSmallPadding,
+            EczaneActionButton(
+                title: "Sign Up", onPressed: () {}, style: button3),
+          ],
+        )
       ],
     ));
   }

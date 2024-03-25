@@ -18,10 +18,6 @@ class _EczaneListViewState extends State<EczaneListView> {
       padding: const EdgeInsets.all(10.0),
       children: <Widget>[
         GridViewButton(
-          title: 'Bilgilerim',
-          onPressed: () {},
-        ),
-        GridViewButton(
           title: 'İlaçlarım',
           onPressed: () {},
         ),
@@ -31,10 +27,6 @@ class _EczaneListViewState extends State<EczaneListView> {
         ),
         GridViewButton(
           title: 'Nöbetçi Eczaneler',
-          onPressed: () {},
-        ),
-        GridViewButton(
-          title: 'İlaç Araması',
           onPressed: () {},
         ),
         GridViewButton(
