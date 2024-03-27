@@ -16,6 +16,7 @@ class _EczaneScaffoldState extends State<EczaneScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBody: true,
+        extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
         appBar: widget.appBar,
         bottomNavigationBar: widget.bottomNavigationBar,

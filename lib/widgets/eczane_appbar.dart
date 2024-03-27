@@ -16,7 +16,7 @@ class __EczaneAppbarStateState extends State<EczaneAppbar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Colors.transparent,
       leading: BackButton(
         color: eczaneLightGrey,
       ),
