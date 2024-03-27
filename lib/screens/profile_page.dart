@@ -7,7 +7,12 @@ class EczaneProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const EczaneScaffold(
-        appBar: EczaneAppbar(), widget: Text("profile page"));
+    return EczaneScaffold(
+        appBar: EczaneAppbar(
+          backButtonPressed: () {
+            Navigator.popAndPushNamed(context, '/MyHomePage');
+          },
+        ),
+        widget: const Text("profile page"));
   }
 }

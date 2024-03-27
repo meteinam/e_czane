@@ -11,7 +11,7 @@ class GridViewButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: button1,
       child: Text(
         title,

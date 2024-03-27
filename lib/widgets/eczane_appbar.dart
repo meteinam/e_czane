@@ -3,7 +3,10 @@ import 'package:e_czane/style/text_sytle.dart';
 import 'package:flutter/material.dart';
 
 class EczaneAppbar extends StatefulWidget implements PreferredSizeWidget {
-  const EczaneAppbar({super.key});
+  final Color? bgColor;
+  final void Function() backButtonPressed;
+  const EczaneAppbar(
+      {super.key, this.bgColor, required this.backButtonPressed});
 
   @override
   State<EczaneAppbar> createState() => __EczaneAppbarStateState();
@@ -16,8 +19,9 @@ class __EczaneAppbarStateState extends State<EczaneAppbar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: widget.bgColor ?? Colors.transparent,
       leading: BackButton(
+        onPressed: widget.backButtonPressed,
         color: eczaneLightGrey,
       ),
       title: Text(

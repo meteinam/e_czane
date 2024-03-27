@@ -1,11 +1,8 @@
-import 'dart:convert';
-
+import 'package:e_czane/widgets/eczane_appbar.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart' as http;
-import 'package:permission_handler/permission_handler.dart';
 
 class PharmacyNearbyPage extends StatefulWidget {
   const PharmacyNearbyPage({super.key});
@@ -16,8 +13,8 @@ class PharmacyNearbyPage extends StatefulWidget {
 
 class _PharmacyNearbyPageState extends State<PharmacyNearbyPage> {
   late GoogleMapController mapController;
-  static CameraPosition _initialPosition =
-      CameraPosition(target: LatLng(41.0082, 28.9784), zoom: 14);
+  static final CameraPosition _initialPosition =
+      const CameraPosition(target: LatLng(41.0082, 28.9784), zoom: 14);
   Set<Marker> markers = {};
   Future<Position> getCurrentLocation() async {
     bool serviceEnabled;
@@ -49,14 +46,19 @@ class _PharmacyNearbyPageState extends State<PharmacyNearbyPage> {
   @override
   Widget build(BuildContext context) {
     return EczaneScaffold(
-        widget: Container(
-            child: GoogleMap(
-      initialCameraPosition: _initialPosition,
-      markers: markers,
-      mapType: MapType.normal,
-      onMapCreated: (controller) {
-        mapController = controller;
-      },
-    )));
+        appBar: EczaneAppbar(
+          bgColor: Theme.of(context).colorScheme.primary,
+          backButtonPressed: () {
+            Navigator.popAndPushNamed(context, '/MyHomePage');
+          },
+        ),
+        widget: GoogleMap(
+          initialCameraPosition: _initialPosition,
+          markers: markers,
+          mapType: MapType.normal,
+          onMapCreated: (controller) {
+            mapController = controller;
+          },
+        ));
   }
 }

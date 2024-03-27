@@ -16,14 +16,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Eczane',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: eczaneDarkRed),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Eczane'),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Eczane',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: eczaneDarkRed),
+          useMaterial3: true,
+        ),
+        initialRoute: '/MyHomePage',
+        routes: {
+          '/MyHomePage': (context) => const MyHomePage(title: 'Eczane'),
+          '/LoginPage': (context) => EczaneLoginPage(),
+          '/MainPage': (context) => const EczaneMainPage(),
+          '/PharmacyNearbyPage': (context) => const PharmacyNearbyPage(),
+          '/ProfilePage': (context) => const EczaneProfilePage(),
+        });
   }
 }
 
@@ -39,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int index = 1;
   final screens = [
     EczaneLoginPage(),
-    PharmacyNearbyPage(),
+    const EczaneMainPage(),
     const EczaneProfilePage(),
   ];
   final items = <Widget>[
