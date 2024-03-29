@@ -9,7 +9,11 @@ class EczaneMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EczaneScaffold(
-      appBar: const EczaneAppbar(),
+      appBar: EczaneAppbar(
+        backButtonPressed: () {
+          Navigator.popAndPushNamed(context, '/MyHomePage');
+        },
+      ),
       widget: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
