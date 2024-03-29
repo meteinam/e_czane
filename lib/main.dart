@@ -45,7 +45,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int index = 1;
   final screens = [
-    EczaneSearchPage(),
+    const EczaneSearchPage(),
     const EczaneMainPage(),
     const EczaneProfilePage(),
   ];

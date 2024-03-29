@@ -1,13 +1,24 @@
+import 'package:e_czane/services/gemini.dart';
 import 'package:e_czane/style/color.dart';
 import 'package:e_czane/widgets/eczane_appbar.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:e_czane/widgets/eczane_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class EczaneSearchPage extends StatelessWidget {
-  EczaneSearchPage({super.key});
+class EczaneSearchPage extends StatefulWidget {
+  const EczaneSearchPage({super.key});
+
+  @override
+  State<EczaneSearchPage> createState() => _EczaneSearchPageState();
+}
+
+class _EczaneSearchPageState extends State<EczaneSearchPage> {
   final TextEditingController searchController = TextEditingController();
+  dynamic response;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +30,7 @@ class EczaneSearchPage extends StatelessWidget {
         ),
         widget: Column(
           children: [
-            SizedBox(height: 100),
+            const SizedBox(height: 100),
             Stack(alignment: Alignment.center, children: [
               Container(
                 width: 340,
@@ -39,17 +50,31 @@ class EczaneSearchPage extends StatelessWidget {
                     height: 35,
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        response = getGeminiData("parol");
+                      });
+                    },
                     icon: const Icon(Icons.search_rounded),
                   ),
                   IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.camera_alt,
                       ))
                 ],
               ),
-            ])
+            ]),
+            SingleChildScrollView(
+                child: FutureBuilder(
+                    future: getGeminiData("parol"),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else {
+                        return Text(snapshot.data.toString());
+                      }
+                    }))
           ],
         ));
   }
