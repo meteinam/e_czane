@@ -7,18 +7,29 @@ class EczaneTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool? isObscured;
   final String? obscuringCharacter;
-  const EczaneTextField(
-      {super.key,
-      this.hint,
-      required this.controller,
-      this.keyboardType,
-      this.isObscured,
-      this.obscuringCharacter});
+  final Color? bgColor;
+  final double width;
+  final double height;
+  const EczaneTextField({
+    super.key,
+    this.hint,
+    required this.controller,
+    this.keyboardType,
+    this.isObscured,
+    this.obscuringCharacter,
+    this.bgColor,
+    required this.width,
+    required this.height,
+  });
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 300,
-      height: 35,
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.0),
+        color: bgColor ?? eczaneLightGrey,
+      ),
       child: TextField(
         controller: controller,
         keyboardType: keyboardType,
@@ -27,12 +38,14 @@ class EczaneTextField extends StatelessWidget {
         style: const TextStyle(fontFamily: 'inter', fontSize: 25),
         textAlign: TextAlign.center,
         decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: const TextStyle(fontFamily: 'inter', fontSize: 20),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            fillColor: eczaneLightGrey),
+          hintText: hint,
+          hintStyle: const TextStyle(fontFamily: 'inter', fontSize: 20),
+          border: OutlineInputBorder(
+            gapPadding: 5,
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          fillColor: eczaneLightGrey,
+        ),
       ),
     );
   }

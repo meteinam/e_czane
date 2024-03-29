@@ -3,6 +3,7 @@ import 'package:e_czane/screens/login_page.dart';
 import 'package:e_czane/screens/main_page.dart';
 import 'package:e_czane/screens/pharmacy_nearby_page.dart';
 import 'package:e_czane/screens/profile_page.dart';
+import 'package:e_czane/screens/search_page.dart';
 import 'package:e_czane/style/color.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int index = 1;
   final screens = [
-    EczaneLoginPage(),
+    EczaneSearchPage(),
     const EczaneMainPage(),
     const EczaneProfilePage(),
   ];

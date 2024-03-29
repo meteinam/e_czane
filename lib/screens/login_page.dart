@@ -21,12 +21,16 @@ class EczaneLoginPage extends StatelessWidget {
           hint: "e-mail",
           controller: userNameController,
           keyboardType: TextInputType.emailAddress,
+          width: 300,
+          height: 35,
         ),
         eczaneSmallPadding,
         EczaneTextField(
           hint: "password",
           controller: passwordController,
           isObscured: true,
+          width: 300,
+          height: 35,
         ),
         eczaneSmallPadding,
         Row(
