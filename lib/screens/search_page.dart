@@ -50,10 +50,8 @@ class _EczaneSearchPageState extends State<EczaneSearchPage> {
                     height: 35,
                   ),
                   IconButton(
-                    onPressed: () {
-                      setState(() {
-                        response = getGeminiData("parol");
-                      });
+                    onPressed: () async {
+                      response = await getGeminiData(searchController.text);
                     },
                     icon: const Icon(Icons.search_rounded),
                   ),
@@ -67,7 +65,7 @@ class _EczaneSearchPageState extends State<EczaneSearchPage> {
             ]),
             SingleChildScrollView(
                 child: FutureBuilder(
-                    future: getGeminiData("parol"),
+                    future: response,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const CircularProgressIndicator();

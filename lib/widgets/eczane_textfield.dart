@@ -2,14 +2,16 @@ import 'package:e_czane/style/color.dart';
 import 'package:flutter/material.dart';
 
 class EczaneTextField extends StatelessWidget {
-  final String? hint;
-  final TextEditingController controller;
-  final TextInputType? keyboardType;
-  final bool? isObscured;
-  final String? obscuringCharacter;
+  final String? hint; // ipucu mesajı
+  final TextEditingController controller; // textfield kontrolcüsü
+  final TextInputType? keyboardType; // klavye tipi
+  final bool? isObscured; // şifre mi değil mi
+  final String? obscuringCharacter; // şifre karakteri
   final Color? bgColor;
-  final double width;
-  final double height;
+
+  /// arkaplan rengi
+  final double width; // genişlik
+  final double height; // yükseklik
   const EczaneTextField({
     super.key,
     this.hint,

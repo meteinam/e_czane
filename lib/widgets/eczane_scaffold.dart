@@ -15,11 +15,14 @@ class _EczaneScaffoldState extends State<EczaneScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        //scaffold widget'ı
         extendBody: true,
         extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
-        appBar: widget.appBar,
-        bottomNavigationBar: widget.bottomNavigationBar,
+        appBar: widget
+            .appBar, //scaffold sayfaya eklenirken dışardan alınan appbar widget'ı
+        bottomNavigationBar: widget
+            .bottomNavigationBar, //scaffold sayfaya eklenirken dışardan alınan bottom navigation bar widget'ı
         body: Center(
           child: Stack(
             alignment: Alignment.center,

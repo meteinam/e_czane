@@ -8,7 +8,7 @@ final header = {
   "Content-Type": "application/json",
 };
 
-getGeminiData(String input) async {
+Future<String> getGeminiData(String input) async {
   var message = {
     "contents": [
       {
@@ -30,5 +30,7 @@ getGeminiData(String input) async {
     }
   }).catchError((e) {
     print(e);
+    return "Error";
   });
+  return "";
 }
