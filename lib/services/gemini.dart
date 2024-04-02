@@ -23,16 +23,13 @@ Future<String?> getGeminiData(String input) async {
 
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
-      print(result["candidates"][0]["content"]["parts"][0]["text"]);
       var responseText =
           result["candidates"][0]["content"]["parts"][0]["text"].toString();
       return responseText;
     } else {
-      print("Request failed with status: ${response.statusCode}");
-      return null;
+      return ("Request failed with status: ${response.statusCode}");
     }
   } catch (e) {
-    print("Error: $e");
-    return null;
+    return ("Error: $e");
   }
 }

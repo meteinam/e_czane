@@ -15,3 +15,17 @@ final textStyleBig = TextStyle(
   fontSize: 40,
   color: eczaneLightGrey,
 );
+final blackTextStyleSmall = TextStyle(
+  fontSize: 20,
+  color: eczaneBlack,
+);
+
+final blackTextStyleMid = TextStyle(
+  fontSize: 25,
+  color: eczaneBlack,
+);
+
+final blackTextStyleBig = TextStyle(
+  fontSize: 40,
+  color: eczaneBlack,
+);
