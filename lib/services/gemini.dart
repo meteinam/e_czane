@@ -24,8 +24,7 @@ Future<String?> getGeminiData(String input) async {
       if (value.statusCode == 200) {
         var result = jsonDecode(value.body);
         print(result["candidates"][0]["content"]["parts"][0]["text"]);
-        var response =
-            result["candidates"][0]["content"]["parts"][0]["text"].toString();
+        var response = result["candidates"][0]["content"]["parts"][0]["text"];
         return response;
       }
     });
@@ -33,5 +32,4 @@ Future<String?> getGeminiData(String input) async {
     print(e);
     return null;
   }
-  return null;
 }

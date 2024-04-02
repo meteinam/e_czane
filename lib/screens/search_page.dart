@@ -69,8 +69,10 @@ class _EczaneSearchPageState extends State<EczaneSearchPage> {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const CircularProgressIndicator();
-                      } else {
+                      } else if (snapshot.hasData) {
                         return Text("${snapshot.data}");
+                      } else {
+                        return const Text("Bir hata oluştu");
                       }
                     }))
           ],
