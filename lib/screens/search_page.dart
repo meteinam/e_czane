@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:e_czane/services/gemini.dart';
 import 'package:e_czane/style/color.dart';
 import 'package:e_czane/widgets/eczane_appbar.dart';
@@ -14,7 +16,6 @@ class EczaneSearchPage extends StatefulWidget {
 
 class _EczaneSearchPageState extends State<EczaneSearchPage> {
   final TextEditingController searchController = TextEditingController();
-  dynamic response;
   @override
   void initState() {
     super.initState();
@@ -50,9 +51,7 @@ class _EczaneSearchPageState extends State<EczaneSearchPage> {
                     height: 35,
                   ),
                   IconButton(
-                    onPressed: () async {
-                      response = await getGeminiData(searchController.text);
-                    },
+                    onPressed: () {},
                     icon: const Icon(Icons.search_rounded),
                   ),
                   IconButton(
@@ -65,12 +64,13 @@ class _EczaneSearchPageState extends State<EczaneSearchPage> {
             ]),
             SingleChildScrollView(
                 child: FutureBuilder(
-                    future: response,
+                    future: getGeminiData("parol"),
+                    initialData: "İlaç arayın",
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const CircularProgressIndicator();
                       } else {
-                        return Text(snapshot.data.toString());
+                        return Text("${snapshot.data}");
                       }
                     }))
           ],

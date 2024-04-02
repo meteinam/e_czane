@@ -2,13 +2,12 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-const ourUrl =
+const baseUrl =
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyAVRrvSmipcQ4Rh7dx-yjeRg3s5r0kSfTQ";
 final header = {
   "Content-Type": "application/json",
 };
-
-Future<String> getGeminiData(String input) async {
+Future<String?> getGeminiData(String input) async {
   var message = {
     "contents": [
       {
@@ -18,19 +17,21 @@ Future<String> getGeminiData(String input) async {
       }
     ]
   };
-  await http
-      .post(Uri.parse(ourUrl), headers: header, body: jsonEncode(message))
-      .then((value) {
-    if (value.statusCode == 200) {
-      var result = jsonDecode(value.body);
-      print(result["candidates"][0]["content"]["parts"][0]["text"]);
-      var response =
-          result["candidates"][0]["content"]["parts"][0]["text"].toString();
-      return response;
-    }
-  }).catchError((e) {
+  try {
+    await http
+        .post(Uri.parse(baseUrl), headers: header, body: jsonEncode(message))
+        .then((value) {
+      if (value.statusCode == 200) {
+        var result = jsonDecode(value.body);
+        print(result["candidates"][0]["content"]["parts"][0]["text"]);
+        var response =
+            result["candidates"][0]["content"]["parts"][0]["text"].toString();
+        return response;
+      }
+    });
+  } catch (e) {
     print(e);
-    return "Error";
-  });
-  return "";
+    return null;
+  }
+  return null;
 }
