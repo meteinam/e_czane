@@ -18,18 +18,21 @@ Future<String?> getGeminiData(String input) async {
     ]
   };
   try {
-    await http
-        .post(Uri.parse(baseUrl), headers: header, body: jsonEncode(message))
-        .then((value) {
-      if (value.statusCode == 200) {
-        var result = jsonDecode(value.body);
-        print(result["candidates"][0]["content"]["parts"][0]["text"]);
-        var response = result["candidates"][0]["content"]["parts"][0]["text"];
-        return response;
-      }
-    });
+    final response = await http.post(Uri.parse(baseUrl),
+        headers: header, body: jsonEncode(message));
+
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+      print(result["candidates"][0]["content"]["parts"][0]["text"]);
+      var responseText =
+          result["candidates"][0]["content"]["parts"][0]["text"].toString();
+      return responseText;
+    } else {
+      print("Request failed with status: ${response.statusCode}");
+      return null;
+    }
   } catch (e) {
-    print(e);
+    print("Error: $e");
     return null;
   }
 }
