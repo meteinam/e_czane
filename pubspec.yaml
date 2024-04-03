@@ -43,6 +43,13 @@ dependencies:
   flutter_gemini: ^2.0.3
   google_mlkit_text_recognition: ^0.11.0
   image_picker: ^1.0.7
+  flutter_native_splash: ^2.4.0
+
+flutter_native_splash:
+  android: true
+  ios: true
+  color: "#ffffff"
+  image: images/e-czane-logo-1.png
 
 dev_dependencies:
   flutter_test:
