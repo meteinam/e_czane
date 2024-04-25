@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:e_czane/constants.dart';
 import 'package:e_czane/dialogs/image_picker_dialog.dart';
 import 'package:e_czane/services/gemini.dart';
 import 'package:e_czane/style/color.dart';
@@ -25,6 +26,7 @@ class _EczaneSearchPageState extends State<EczaneSearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    DeviceSize.init(context);
     return EczaneScaffold(
         appBar: EczaneAppbar(
           backButtonPressed: () {

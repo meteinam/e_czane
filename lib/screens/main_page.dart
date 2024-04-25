@@ -1,3 +1,4 @@
+import 'package:e_czane/constants.dart';
 import 'package:e_czane/widgets/eczane_appbar.dart';
 import 'package:e_czane/widgets/eczane_listview.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
@@ -8,6 +9,7 @@ class EczaneMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceSize.init(context);
     return EczaneScaffold(
       appBar: EczaneAppbar(
         backButtonPressed: () {
@@ -20,12 +22,9 @@ class EczaneMainPage extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 400,
+              width: DeviceSize.width,
+              height: DeviceSize.height * 0.60,
               child: const EczaneListView()),
-          const SizedBox(
-            height: 50,
-          )
         ],
       ),
     );
