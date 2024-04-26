@@ -30,6 +30,9 @@ class EczaneTextField extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(
+          color: Colors.transparent,
+        ),
         color: bgColor ?? eczaneLightGrey,
       ),
       child: TextField(

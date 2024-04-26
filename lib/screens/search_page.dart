@@ -35,11 +35,11 @@ class _EczaneSearchPageState extends State<EczaneSearchPage> {
         ),
         widget: Column(
           children: [
-            const SizedBox(height: 100),
+            SizedBox(height: DeviceSize.height * 0.1),
             Stack(alignment: Alignment.center, children: [
               Container(
-                width: 340,
-                height: 35,
+                width: DeviceSize.width * 0.9,
+                height: DeviceSize.height * 0.05,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   color: eczaneLightGrey,
@@ -51,8 +51,8 @@ class _EczaneSearchPageState extends State<EczaneSearchPage> {
                   EczaneTextField(
                     controller: searchController,
                     hint: "Search",
-                    width: 250,
-                    height: 35,
+                    width: DeviceSize.width * 0.7,
+                    height: DeviceSize.height * 0.05,
                   ),
                   IconButton(
                     onPressed: () {
@@ -83,7 +83,7 @@ class _EczaneSearchPageState extends State<EczaneSearchPage> {
               ),
             ]),
             SizedBox(
-              height: 500,
+              height: DeviceSize.height * 0.72,
               child: SingleChildScrollView(
                   child: FutureBuilder(
                       future: response,

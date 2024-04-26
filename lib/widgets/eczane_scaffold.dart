@@ -1,3 +1,4 @@
+import 'package:e_czane/constants.dart';
 import 'package:flutter/material.dart';
 
 class EczaneScaffold extends StatefulWidget {
@@ -14,6 +15,7 @@ class EczaneScaffold extends StatefulWidget {
 class _EczaneScaffoldState extends State<EczaneScaffold> {
   @override
   Widget build(BuildContext context) {
+    DeviceSize.init(context);
     return Scaffold(
         //scaffold widget'ı
         extendBody: true,
@@ -29,9 +31,15 @@ class _EczaneScaffoldState extends State<EczaneScaffold> {
             children: [
               Column(
                 children: [
-                  Image.asset('images/arka_plan_üst.png'),
+                  Image.asset(
+                    'images/arka_plan_üst.png',
+                    width: DeviceSize.width,
+                  ),
                   const Spacer(),
-                  Image.asset('images/arka_plan_alt.png'),
+                  Image.asset(
+                    'images/arka_plan_alt.png',
+                    width: DeviceSize.width,
+                  ),
                 ],
               ),
               widget.widget,

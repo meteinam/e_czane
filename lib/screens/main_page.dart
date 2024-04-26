@@ -23,8 +23,12 @@ class EczaneMainPage extends StatelessWidget {
         children: [
           SizedBox(
               width: DeviceSize.width,
-              height: DeviceSize.height * 0.60,
+              height: DeviceSize.height * 0.65,
               child: const EczaneListView()),
+          SizedBox(
+            width: DeviceSize.width,
+            height: DeviceSize.height * 0.05,
+          )
         ],
       ),
     );

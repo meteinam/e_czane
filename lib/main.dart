@@ -1,6 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:e_czane/constants.dart';
 import 'package:e_czane/screens/login_page.dart';
 import 'package:e_czane/screens/main_page.dart';
+import 'package:e_czane/screens/main_page_responsive.dart';
 import 'package:e_czane/screens/pharmacy_nearby_page.dart';
 import 'package:e_czane/screens/profile_page.dart';
 import 'package:e_czane/screens/search_page.dart';
@@ -46,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int index = 1;
   final screens = [
     const EczaneSearchPage(),
-    const EczaneMainPage(),
+    const EczaneResponsiveMainPage(),
     const EczaneProfilePage(),
   ];
   final items = <Widget>[
@@ -56,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    DeviceSize.init(context);
     return EczaneScaffold(
       widget: screens[index],
       bottomNavigationBar: Theme(
@@ -63,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           iconTheme: IconThemeData(color: eczaneLightGrey),
         ),
         child: CurvedNavigationBar(
-          height: 50,
+          height: DeviceSize.height * 0.08,
           backgroundColor: Colors.transparent,
           color: eczaneDarkGrey,
           items: items,
