@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:e_czane/constants.dart';
 import 'package:e_czane/widgets/eczane_appbar.dart';
 import 'package:e_czane/widgets/eczane_numericfield.dart';
@@ -94,38 +95,24 @@ class _MedicinePageState extends State<MedicinePage> {
                   },
                 ),
                 TextButton(
-                  child: const Text('Ekle'),
-                  onPressed: () {
-                    if (name.isNotEmpty && repeat > 0) {
-                      Navigator.of(context).pop(
-                        Medicine(
-                          name: name,
-                          repeat: repeat,
-                          times: times,
-                          category: category,
-                        ),
-                      );
-                    } else if (name.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('İlaç adı boş olamaz'),
-                        ),
-                      );
-                    } else if (repeat <= 0) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Tekrar sayısı 0 olamaz'),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Bir hata oluştu'),
-                        ),
-                      );
-                    }
-                  },
-                ),
+                    child: const Text('Ekle'),
+                    onPressed: () {
+                      if (name.isNotEmpty && repeat > 0) {
+                        Navigator.of(context).pop(
+                          Medicine(
+                            name: name,
+                            repeat: repeat,
+                            times: times,
+                            category: category,
+                          ),
+                        );
+                      } else if (name.isEmpty) {
+                        Flushbar(
+                          message: 'İlaç adı boş olamaz',
+                          duration: const Duration(seconds: 3),
+                        ).show(context);
+                      }
+                    }),
               ],
             );
           },
