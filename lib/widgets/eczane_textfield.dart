@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 class EczaneTextField extends StatelessWidget {
   final String? hint; // ipucu mesajı
-  final TextEditingController controller; // textfield kontrolcüsü
+  final TextEditingController? controller; // textfield kontrolcüsü
   final TextInputType? keyboardType; // klavye tipi
   final bool? isObscured; // şifre mi değil mi
   final String? obscuringCharacter; // şifre karakteri
   final Color? bgColor;
+  final void Function(String)? onChanged; // değiştiğinde
 
   /// arkaplan rengi
   final double width; // genişlik
@@ -15,13 +16,14 @@ class EczaneTextField extends StatelessWidget {
   const EczaneTextField({
     super.key,
     this.hint,
-    required this.controller,
+    this.controller,
     this.keyboardType,
     this.isObscured,
     this.obscuringCharacter,
     this.bgColor,
     required this.width,
     required this.height,
+    this.onChanged,
   });
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class EczaneTextField extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
+        onChanged: onChanged ?? (value) {},
         keyboardType: keyboardType,
         obscureText: isObscured ?? false,
         obscuringCharacter: obscuringCharacter ?? "*",

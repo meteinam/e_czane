@@ -5,8 +5,13 @@ class EczaneScaffold extends StatefulWidget {
   final Widget widget;
   final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
+  final Widget? floatingActionButton;
   const EczaneScaffold(
-      {super.key, required this.widget, this.appBar, this.bottomNavigationBar});
+      {super.key,
+      required this.widget,
+      this.appBar,
+      this.bottomNavigationBar,
+      this.floatingActionButton});
 
   @override
   State<EczaneScaffold> createState() => _EczaneScaffoldState();
@@ -25,6 +30,7 @@ class _EczaneScaffoldState extends State<EczaneScaffold> {
             .appBar, //scaffold sayfaya eklenirken dışardan alınan appbar widget'ı
         bottomNavigationBar: widget
             .bottomNavigationBar, //scaffold sayfaya eklenirken dışardan alınan bottom navigation bar widget'ı
+        floatingActionButton: widget.floatingActionButton,
         body: Center(
           child: Stack(
             alignment: Alignment.center,

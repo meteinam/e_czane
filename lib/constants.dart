@@ -12,3 +12,16 @@ class DeviceSize {
     height = MediaQuery.of(context).size.height;
   }
 }
+
+class Medicine {
+  final String name;
+  final String? category;
+  List<TimeOfDay> times;
+  final int repeat;
+  Medicine({
+    required this.times,
+    required this.repeat,
+    required this.name,
+    this.category,
+  });
+}

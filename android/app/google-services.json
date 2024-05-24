@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "845305226005",
+    "project_id": "e-czane-notifier",
+    "storage_bucket": "e-czane-notifier.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845305226005:android:666825ee4a019eee3fbf1c",
+        "android_client_info": {
+          "package_name": "com.example.e_czane"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiQQRBLclbjwd_eJFCHqyifKsAE5FOWE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

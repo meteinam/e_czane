@@ -3,6 +3,7 @@ import 'package:e_czane/constants.dart';
 import 'package:e_czane/screens/login_page.dart';
 import 'package:e_czane/screens/main_page.dart';
 import 'package:e_czane/screens/main_page_responsive.dart';
+import 'package:e_czane/screens/medicine_page.dart';
 import 'package:e_czane/screens/pharmacy_nearby_page.dart';
 import 'package:e_czane/screens/profile_page.dart';
 import 'package:e_czane/screens/search_page.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
           '/MainPage': (context) => const EczaneMainPage(),
           '/PharmacyNearbyPage': (context) => const PharmacyNearbyPage(),
           '/ProfilePage': (context) => const EczaneProfilePage(),
+          '/MedicinePage': (context) => const MedicinePage(),
         });
   }
 }

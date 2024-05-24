@@ -26,7 +26,7 @@ class EczaneLoginPage extends StatelessWidget {
         ),
         eczaneSmallPadding,
         EczaneTextField(
-          hint: "password",
+          hint: "şifre",
           controller: passwordController,
           isObscured: true,
           width: 300,
@@ -40,7 +40,7 @@ class EczaneLoginPage extends StatelessWidget {
                 title: "Giriş Yap", onPressed: () {}, style: button3),
             eczaneSmallPadding,
             EczaneActionButton(
-                title: "Sign Up", onPressed: () {}, style: button3),
+                title: "Kayıt ol", onPressed: () {}, style: button3),
           ],
         )
       ],

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class EczaneProfilePage extends StatelessWidget {
   const EczaneProfilePage({super.key});
-
+  final String image = "images/stockpp.png";
   @override
   Widget build(BuildContext context) {
     return EczaneScaffold(
@@ -18,9 +18,9 @@ class EczaneProfilePage extends StatelessWidget {
         widget: Column(
           children: [
             const SizedBox(height: 100),
-            const CircleAvatar(
+            CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('assets/images/profile.png'),
+              backgroundImage: AssetImage(image),
             ),
             const SizedBox(height: 20),
             Container(
