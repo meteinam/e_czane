@@ -1,16 +1,32 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 
 class ApiService {
   final String apiBaseUrl = 'https://10.0.2.2:7211/';
+
+  // Create an HttpClient that ignores bad certificates
+  HttpClient _createHttpClient() {
+    final HttpClient client = HttpClient();
+    client.badCertificateCallback =
+        (X509Certificate cert, String host, int port) => true;
+    return client;
+  }
+
+  IOClient _createIoClient() {
+    return IOClient(_createHttpClient());
+  }
+
   Future<void> postData(Map<String, String> userData, void Function() success,
       String endPoint, BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
+    final client = _createIoClient();
 
     try {
-      final response = await http.post(
+      final response = await client.post(
         url,
         headers: {
           'Content-Type': 'application/json',
@@ -19,7 +35,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        success;
+        success();
       } else {
         if (context.mounted) {
           Flushbar(
@@ -42,10 +58,11 @@ class ApiService {
 
   Future getData(String endPoint, BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
+    final client = _createIoClient();
     var userData;
 
     try {
-      final response = await http.get(url);
+      final response = await client.get(url);
 
       if (response.statusCode == 200) {
         userData = jsonDecode(response.body);
@@ -72,12 +89,13 @@ class ApiService {
   Future<void> deleteData(
       void Function() success, String endPoint, BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
+    final client = _createIoClient();
 
     try {
-      final response = await http.delete(url);
+      final response = await client.delete(url);
 
       if (response.statusCode == 200) {
-        success;
+        success();
       } else {
         if (context.mounted) {
           Flushbar(
@@ -100,8 +118,10 @@ class ApiService {
   Future<void> putData(Map<String, String> userData, void Function() success,
       String endPoint, BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
+    final client = _createIoClient();
+
     try {
-      final response = await http.put(
+      final response = await client.put(
         url,
         headers: {
           'Content-Type': 'application/json',
@@ -109,7 +129,7 @@ class ApiService {
         body: jsonEncode(userData),
       );
       if (response.statusCode == 200) {
-        success;
+        success();
       } else {
         if (context.mounted) {
           Flushbar(
