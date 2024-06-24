@@ -7,6 +7,7 @@ import 'package:e_czane/screens/medicine_page.dart';
 import 'package:e_czane/screens/pharmacy_nearby_page.dart';
 import 'package:e_czane/screens/profile_page.dart';
 import 'package:e_czane/screens/search_page.dart';
+import 'package:e_czane/screens/signup_page.dart';
 import 'package:e_czane/style/color.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: eczaneDarkRed),
           useMaterial3: true,
         ),
-        initialRoute: '/MyHomePage',
+        initialRoute: '/SignUpPage',
         routes: {
           '/MyHomePage': (context) => const MyHomePage(title: 'Eczane'),
           '/LoginPage': (context) => EczaneLoginPage(),
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
           '/PharmacyNearbyPage': (context) => const PharmacyNearbyPage(),
           '/ProfilePage': (context) => const EczaneProfilePage(),
           '/MedicinePage': (context) => const MedicinePage(),
+          '/SignUpPage': (context) => const EczaneSignupPage(),
         });
   }
 }

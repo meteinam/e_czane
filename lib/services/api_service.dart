@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:another_flushbar/flushbar.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String apiBaseUrl = '';
+  final String apiBaseUrl = 'https://10.0.2.2:7211/';
   Future<void> postData(Map<String, String> userData, void Function() success,
-      String endPoint) async {
+      String endPoint, BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
 
     try {
@@ -19,32 +21,56 @@ class ApiService {
       if (response.statusCode == 200) {
         success;
       } else {
-        print('Failed to post data: ${response.statusCode}');
-        print('Response: ${response.body}');
+        if (context.mounted) {
+          Flushbar(
+            message:
+                'İşlem sırasında hata oluştu: ${response.statusCode} ${response.body}',
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
       }
     } catch (e) {
-      print('Error occurred: $e');
+      print(e);
+      if (context.mounted) {
+        Flushbar(
+          message: 'Bir hata oluştu: $e',
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      }
     }
   }
 
-  Future<void> getData(void Function(String) success, String endPoint) async {
+  Future getData(String endPoint, BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
+    var userData;
 
     try {
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
-        success(response.body);
+        userData = jsonDecode(response.body);
+        return userData;
       } else {
-        print('Failed to get data: ${response.statusCode}');
-        print('Response: ${response.body}');
+        if (context.mounted) {
+          Flushbar(
+            message:
+                'İşlem sırasında hata oluştu: ${response.statusCode} ${response.body}',
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
       }
     } catch (e) {
-      print('Error occurred: $e');
+      if (context.mounted) {
+        Flushbar(
+          message: 'Bir hata oluştu: $e',
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      }
     }
   }
 
-  Future<void> deleteData(void Function() success, String endPoint) async {
+  Future<void> deleteData(
+      void Function() success, String endPoint, BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
 
     try {
@@ -53,18 +79,27 @@ class ApiService {
       if (response.statusCode == 200) {
         success;
       } else {
-        print('Failed to delete data: ${response.statusCode}');
-        print('Response: ${response.body}');
+        if (context.mounted) {
+          Flushbar(
+            message:
+                'Silme işlemi sırasında hata oluştu: ${response.statusCode} ${response.body}',
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
       }
     } catch (e) {
-      print('Error occurred: $e');
+      if (context.mounted) {
+        Flushbar(
+          message: 'Bir hata oluştu: $e',
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      }
     }
   }
 
   Future<void> putData(Map<String, String> userData, void Function() success,
-      String endPoint) async {
+      String endPoint, BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
-
     try {
       final response = await http.put(
         url,
@@ -73,15 +108,24 @@ class ApiService {
         },
         body: jsonEncode(userData),
       );
-
       if (response.statusCode == 200) {
         success;
       } else {
-        print('Failed to put data: ${response.statusCode}');
-        print('Response: ${response.body}');
+        if (context.mounted) {
+          Flushbar(
+            message:
+                'Güncelleme sırasında hata oluştu: ${response.statusCode} ${response.body}',
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
       }
     } catch (e) {
-      print('Error occurred: $e');
+      if (context.mounted) {
+        Flushbar(
+          message: 'Bir hata oluştu: $e',
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      }
     }
   }
 }

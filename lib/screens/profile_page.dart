@@ -1,12 +1,26 @@
+import 'package:e_czane/services/api_service.dart';
 import 'package:e_czane/style/color.dart';
 import 'package:e_czane/style/text_sytle.dart';
 import 'package:e_czane/widgets/eczane_appbar.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:flutter/material.dart';
 
-class EczaneProfilePage extends StatelessWidget {
+class EczaneProfilePage extends StatefulWidget {
   const EczaneProfilePage({super.key});
+
+  @override
+  State<EczaneProfilePage> createState() => _EczaneProfilePageState();
+}
+
+class _EczaneProfilePageState extends State<EczaneProfilePage> {
   final String image = "images/stockpp.png";
+
+  @override
+  void initState() {
+    super.initState();
+    ApiService().getData("", context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return EczaneScaffold(
@@ -30,7 +44,7 @@ class EczaneProfilePage extends StatelessWidget {
                 color: eczaneLightGrey,
               ),
               child: Text(
-                'John Doe',
+                "Kullanıcı Adı",
                 style: blackTextStyleSmall,
               ),
             ),

@@ -50,7 +50,7 @@ class _EczaneSearchPageState extends State<EczaneSearchPage> {
                 children: [
                   EczaneTextField(
                     controller: searchController,
-                    hint: "Search",
+                    hint: "İlaç arayın",
                     width: DeviceSize.width * 0.7,
                     height: DeviceSize.height * 0.05,
                   ),
