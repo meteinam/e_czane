@@ -1,4 +1,5 @@
 import 'package:e_czane/constants.dart';
+import 'package:e_czane/services/api_service.dart';
 import 'package:e_czane/style/button_style.dart';
 import 'package:e_czane/widgets/eczane_buttons.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
@@ -37,10 +38,23 @@ class EczaneLoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             EczaneActionButton(
-                title: "Giriş Yap", onPressed: () {}, style: button3),
+                title: "Giriş Yap",
+                onPressed: () async {
+                  await ApiService().postData({
+                    "email": userNameController.text,
+                    "password": passwordController.text,
+                  }, () {
+                    Navigator.popAndPushNamed(context, "/MyHomePage");
+                  }, "api/Auth/CreateToken/", context);
+                },
+                style: button3),
             eczaneSmallPadding,
             EczaneActionButton(
-                title: "Kayıt ol", onPressed: () {}, style: button3),
+                title: "Kayıt ol",
+                onPressed: () {
+                  Navigator.popAndPushNamed(context, "/SignUpPage");
+                },
+                style: button3),
           ],
         )
       ],

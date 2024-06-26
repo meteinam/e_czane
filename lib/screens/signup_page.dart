@@ -140,7 +140,7 @@ class _EczaneSignupPageState extends State<EczaneSignupPage> {
                     "phoneNumber": phoneNumController.text,
                     "password": passwordController.text,
                   }, () {
-                    Navigator.pushNamed(context, "/LoginPage");
+                    Navigator.popAndPushNamed(context, "/LoginPage");
                   }, "api/user/", context);
                 },
                 style: button3),

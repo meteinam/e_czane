@@ -2,13 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
 class ApiService {
   final String apiBaseUrl = 'https://10.0.2.2:7211/';
 
-  // Create an HttpClient that ignores bad certificates
   HttpClient _createHttpClient() {
     final HttpClient client = HttpClient();
     client.badCertificateCallback =
@@ -46,7 +44,6 @@ class ApiService {
         }
       }
     } catch (e) {
-      print(e);
       if (context.mounted) {
         Flushbar(
           message: 'Bir hata oluştu: $e',
@@ -56,13 +53,52 @@ class ApiService {
     }
   }
 
-  Future getData(String endPoint, BuildContext context) async {
+  Future<void> postDataWithToken(Map<String, String> userData, String token,
+      void Function() success, String endPoint, BuildContext context) async {
+    final url = Uri.parse(apiBaseUrl + endPoint);
+    final client = _createIoClient();
+
+    try {
+      final response = await client.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode(userData),
+      );
+
+      if (response.statusCode == 200) {
+        success();
+      } else {
+        if (context.mounted) {
+          Flushbar(
+            message:
+                'İşlem sırasında hata oluştu: ${response.statusCode} ${response.body}',
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        Flushbar(
+          message: 'Bir hata oluştu: $e',
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      }
+    }
+  }
+
+  Future getData(String endPoint, String token, BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
     final client = _createIoClient();
     var userData;
 
     try {
-      final response = await client.get(url);
+      final response = await client.get(url, headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      });
 
       if (response.statusCode == 200) {
         userData = jsonDecode(response.body);
@@ -86,9 +122,9 @@ class ApiService {
     }
   }
 
-  Future<void> deleteData(
-      void Function() success, String endPoint, BuildContext context) async {
-    final url = Uri.parse(apiBaseUrl + endPoint);
+  Future<void> deleteData(void Function() success, String endPoint,
+      String token, int id, BuildContext context) async {
+    final url = Uri.parse(apiBaseUrl + endPoint + id.toString());
     final client = _createIoClient();
 
     try {
@@ -115,8 +151,8 @@ class ApiService {
     }
   }
 
-  Future<void> putData(Map<String, String> userData, void Function() success,
-      String endPoint, BuildContext context) async {
+  Future<void> putData(Map<String, String> userData, String token,
+      void Function() success, String endPoint, BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
     final client = _createIoClient();
 
@@ -125,6 +161,7 @@ class ApiService {
         url,
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
         },
         body: jsonEncode(userData),
       );

@@ -18,7 +18,7 @@ class _EczaneProfilePageState extends State<EczaneProfilePage> {
   @override
   void initState() {
     super.initState();
-    ApiService().getData("", context);
+    // ApiService().getData("api/user/", ,context);
   }
 
   @override

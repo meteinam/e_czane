@@ -15,13 +15,17 @@ class WelcomePage extends StatelessWidget {
       children: [
         EczaneActionButton(
           title: "Giriş Yap",
-          onPressed: () {},
+          onPressed: () {
+            Navigator.popAndPushNamed(context, "/LoginPage");
+          },
           style: button2,
         ),
         eczaneSmallPadding,
         EczaneActionButton(
-          title: "Kaydol",
-          onPressed: () {},
+          title: "Kayıt ol",
+          onPressed: () {
+            Navigator.popAndPushNamed(context, "/SignUpPage");
+          },
           style: button2,
         ),
       ],

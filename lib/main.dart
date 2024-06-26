@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:e_czane/constants.dart';
+import 'package:e_czane/screens/duty_pharmacy_page.dart';
 import 'package:e_czane/screens/login_page.dart';
 import 'package:e_czane/screens/main_page.dart';
 import 'package:e_czane/screens/main_page_responsive.dart';
@@ -8,6 +9,7 @@ import 'package:e_czane/screens/pharmacy_nearby_page.dart';
 import 'package:e_czane/screens/profile_page.dart';
 import 'package:e_czane/screens/search_page.dart';
 import 'package:e_czane/screens/signup_page.dart';
+import 'package:e_czane/screens/welcome_page.dart';
 import 'package:e_czane/style/color.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: eczaneDarkRed),
           useMaterial3: true,
         ),
-        initialRoute: '/SignUpPage',
+        initialRoute: '/DutyPharmacyPage',
         routes: {
           '/MyHomePage': (context) => const MyHomePage(title: 'Eczane'),
           '/LoginPage': (context) => EczaneLoginPage(),
@@ -36,6 +38,8 @@ class MyApp extends StatelessWidget {
           '/ProfilePage': (context) => const EczaneProfilePage(),
           '/MedicinePage': (context) => const MedicinePage(),
           '/SignUpPage': (context) => const EczaneSignupPage(),
+          '/WelcomePage': (context) => const WelcomePage(),
+          '/DutyPharmacyPage': (context) => const EczaneDutyPage(),
         });
   }
 }
