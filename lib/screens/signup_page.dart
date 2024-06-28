@@ -139,7 +139,7 @@ class _EczaneSignupPageState extends State<EczaneSignupPage> {
                     "dateOfBirth": _formattedDate,
                     "phoneNumber": phoneNumController.text,
                     "password": passwordController.text,
-                  }, () {
+                  }, (data) {
                     Navigator.popAndPushNamed(context, "/LoginPage");
                   }, "api/user/", context);
                 },

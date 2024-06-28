@@ -1,5 +1,6 @@
 import 'package:e_czane/constants.dart';
 import 'package:e_czane/services/api_service.dart';
+import 'package:e_czane/services/cache_service.dart';
 import 'package:e_czane/style/button_style.dart';
 import 'package:e_czane/widgets/eczane_buttons.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
@@ -43,8 +44,9 @@ class EczaneLoginPage extends StatelessWidget {
                   await ApiService().postData({
                     "email": userNameController.text,
                     "password": passwordController.text,
-                  }, () {
+                  }, (data) {
                     Navigator.popAndPushNamed(context, "/MyHomePage");
+                    writeHive(data['accesToken'], data['refreshToken']);
                   }, "api/Auth/CreateToken/", context);
                 },
                 style: button3),

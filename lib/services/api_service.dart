@@ -18,8 +18,11 @@ class ApiService {
     return IOClient(_createHttpClient());
   }
 
-  Future<void> postData(Map<String, String> userData, void Function() success,
-      String endPoint, BuildContext context) async {
+  Future postData(
+      Map<String, String> userData,
+      Function(Map<String, dynamic> data) success,
+      String endPoint,
+      BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
     final client = _createIoClient();
 
@@ -33,7 +36,8 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        success();
+        Map<String, dynamic> data = json.decode(response.body)['data'];
+        success(data);
       } else {
         if (context.mounted) {
           Flushbar(

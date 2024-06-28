@@ -13,8 +13,11 @@ import 'package:e_czane/screens/welcome_page.dart';
 import 'package:e_czane/style/color.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  var tokenBox = Hive.openBox('tokenBox');
   runApp(const MyApp());
 }
 
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: eczaneDarkRed),
           useMaterial3: true,
         ),
-        initialRoute: '/DutyPharmacyPage',
+        initialRoute: '/WelcomePage',
         routes: {
           '/MyHomePage': (context) => const MyHomePage(title: 'Eczane'),
           '/LoginPage': (context) => EczaneLoginPage(),
