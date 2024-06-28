@@ -45,6 +45,8 @@ class EczaneLoginPage extends StatelessWidget {
                     "email": userNameController.text,
                     "password": passwordController.text,
                   }, (data) {
+                    deleteHive('accessToken');
+                    deleteHive('refreshToken');
                     Navigator.popAndPushNamed(context, "/MyHomePage");
                     writeHive(data['accesToken'], data['refreshToken']);
                   }, "api/Auth/CreateToken/", context);

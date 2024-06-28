@@ -6,6 +6,7 @@ import 'package:e_czane/widgets/eczane_buttons.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:e_czane/widgets/eczane_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EczaneSignupPage extends StatefulWidget {
   const EczaneSignupPage({super.key});
@@ -41,7 +42,7 @@ class _EczaneSignupPageState extends State<EczaneSignupPage> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        _formattedDate = _selectedDate.toString();
+        _formattedDate = DateFormat('dd-MM-yyyy').format(_selectedDate!);
       });
     }
   }

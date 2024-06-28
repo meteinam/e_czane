@@ -57,8 +57,13 @@ class ApiService {
     }
   }
 
-  Future<void> postDataWithToken(Map<String, String> userData, String token,
-      void Function() success, String endPoint, BuildContext context) async {
+  Future<void> postDataWithToken(
+      Map<String, String> userData,
+      String token,
+      void Function() success,
+      void Function() unauthorized,
+      String endPoint,
+      BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
     final client = _createIoClient();
 
@@ -74,6 +79,14 @@ class ApiService {
 
       if (response.statusCode == 200) {
         success();
+      } else if (response.statusCode == 401) {
+        unauthorized();
+        if (context.mounted) {
+          Flushbar(
+            message: 'Lütfen tekrar giriş yapınız',
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
       } else {
         if (context.mounted) {
           Flushbar(
@@ -93,10 +106,14 @@ class ApiService {
     }
   }
 
-  Future getData(String endPoint, String token, BuildContext context) async {
+  Future getData(
+      String endPoint,
+      String token,
+      Function(Map<String, dynamic> data) success,
+      void Function() unauthorized,
+      BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
     final client = _createIoClient();
-    var userData;
 
     try {
       final response = await client.get(url, headers: {
@@ -105,8 +122,17 @@ class ApiService {
       });
 
       if (response.statusCode == 200) {
-        userData = jsonDecode(response.body);
-        return userData;
+        Map<String, dynamic> userData = json.decode(response.body)['data'];
+        print(userData);
+        success(userData);
+      } else if (response.statusCode == 401) {
+        unauthorized();
+        if (context.mounted) {
+          Flushbar(
+            message: 'Lütfen tekrar giriş yapınız',
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
       } else {
         if (context.mounted) {
           Flushbar(
@@ -126,8 +152,13 @@ class ApiService {
     }
   }
 
-  Future<void> deleteData(void Function() success, String endPoint,
-      String token, int id, BuildContext context) async {
+  Future<void> deleteData(
+      void Function() success,
+      String endPoint,
+      String token,
+      int id,
+      void Function() unauthorized,
+      BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint + id.toString());
     final client = _createIoClient();
 
@@ -136,6 +167,14 @@ class ApiService {
 
       if (response.statusCode == 200) {
         success();
+      } else if (response.statusCode == 401) {
+        unauthorized();
+        if (context.mounted) {
+          Flushbar(
+            message: 'Lütfen tekrar giriş yapınız',
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
       } else {
         if (context.mounted) {
           Flushbar(
