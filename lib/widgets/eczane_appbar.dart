@@ -29,16 +29,6 @@ class __EczaneAppbarStateState extends State<EczaneAppbar> {
         'Eczane',
         style: textStyleSmall,
       ),
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.message_rounded, color: eczaneLightGrey),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.settings_rounded, color: eczaneLightGrey),
-        ),
-      ],
     );
   }
 }

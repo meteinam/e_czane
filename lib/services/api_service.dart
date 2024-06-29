@@ -158,7 +158,7 @@ class ApiService {
   Future<List<Medicine>> getMedicineData(
       String endPoint,
       String token,
-      Function(List<dynamic> data) success,
+      Function(List<Medicine> data) success,
       void Function() unauthorized,
       BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
@@ -171,10 +171,11 @@ class ApiService {
       });
 
       if (response.statusCode == 200) {
-        List<dynamic> userData = json.decode(response.body)['data'];
-        print(userData);
-        success(userData);
-        return userData.map((json) => Medicine.fromJson(json)).toList();
+        List<dynamic> responseData = json.decode(response.body)['data'];
+        List<Medicine> medicines =
+            responseData.map((json) => Medicine.fromJson(json)).toList();
+        success(medicines);
+        return medicines;
       } else if (response.statusCode == 401) {
         unauthorized();
         if (context.mounted) {
@@ -202,7 +203,6 @@ class ApiService {
       }
     }
 
-    // Add a return statement here
     return [];
   }
 

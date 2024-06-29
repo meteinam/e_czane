@@ -17,6 +17,18 @@ class MedicinePage extends StatefulWidget {
 
 class _MedicinePageState extends State<MedicinePage> {
   List<Medicine> medicines = [];
+  @override
+  void initState() {
+    ApiService().getMedicineData('api/Medicine', readHive('accessToken'),
+        (data) {
+      medicines = data;
+      setState(() {});
+    }, () {
+      Navigator.popAndPushNamed(context, '/LoginPage');
+    }, context);
+    super.initState();
+  }
+
   void _addMedicine() async {
     final medicine = await showDialog<Medicine>(
       context: context,
@@ -126,8 +138,7 @@ class _MedicinePageState extends State<MedicinePage> {
     );
 
     if (medicine != null) {
-      final DateTime referenceDate =
-          DateTime.now(); // You can customize this to any reference date
+      final DateTime referenceDate = DateTime.now();
       final List<String> iso8601Times =
           medicine.getTimesAsIso8601String(referenceDate);
 
@@ -139,19 +150,20 @@ class _MedicinePageState extends State<MedicinePage> {
         'tcId': readHive('tcId'),
       };
 
-      print(payload); // Debugging print statement
-
       ApiService().postDataWithToken(
         payload,
         readHive('accessToken'),
-        () {},
-        () {},
+        () {
+          setState(() {
+            medicines.add(medicine);
+          });
+        },
+        () {
+          Navigator.popAndPushNamed(context, '/LoginPage');
+        },
         'api/Medicine',
         context,
       );
-      setState(() {
-        medicines.add(medicine);
-      });
     }
   }
 
@@ -213,9 +225,22 @@ class _MedicinePageState extends State<MedicinePage> {
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          _removeMedicine(index);
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).pop();
+                                          ApiService().deleteData(
+                                              () {
+                                                _removeMedicine(index);
+                                                Navigator.of(context).pop();
+                                                Navigator.of(context).pop();
+                                              },
+                                              'api/Medicine/',
+                                              readHive('accessToken'),
+                                              index + 1,
+                                              () {
+                                                Navigator.popAndPushNamed(
+                                                  context,
+                                                  '/LoginPage',
+                                                );
+                                              },
+                                              context);
                                         },
                                         child: const Text('Sil'),
                                       ),

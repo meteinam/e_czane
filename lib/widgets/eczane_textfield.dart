@@ -43,7 +43,7 @@ class EczaneTextField extends StatelessWidget {
         keyboardType: keyboardType,
         obscureText: isObscured ?? false,
         obscuringCharacter: obscuringCharacter ?? "*",
-        style: const TextStyle(fontFamily: 'inter', fontSize: 25),
+        style: const TextStyle(fontFamily: 'inter', fontSize: 18),
         textAlign: TextAlign.center,
         decoration: InputDecoration(
           hintText: hint,
