@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:e_czane/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/io_client.dart';
 
@@ -58,7 +59,7 @@ class ApiService {
   }
 
   Future<void> postDataWithToken(
-      Map<String, String> userData,
+      Map<String, dynamic> userData,
       String token,
       void Function() success,
       void Function() unauthorized,
@@ -88,6 +89,8 @@ class ApiService {
           ).show(context);
         }
       } else {
+        print(userData);
+        print(response.body);
         if (context.mounted) {
           Flushbar(
             message:
@@ -150,6 +153,57 @@ class ApiService {
         ).show(context);
       }
     }
+  }
+
+  Future<List<Medicine>> getMedicineData(
+      String endPoint,
+      String token,
+      Function(List<dynamic> data) success,
+      void Function() unauthorized,
+      BuildContext context) async {
+    final url = Uri.parse(apiBaseUrl + endPoint);
+    final client = _createIoClient();
+
+    try {
+      final response = await client.get(url, headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      });
+
+      if (response.statusCode == 200) {
+        List<dynamic> userData = json.decode(response.body)['data'];
+        print(userData);
+        success(userData);
+        return userData.map((json) => Medicine.fromJson(json)).toList();
+      } else if (response.statusCode == 401) {
+        unauthorized();
+        if (context.mounted) {
+          Flushbar(
+            message: 'Lütfen tekrar giriş yapınız',
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
+      } else {
+        print(response.body);
+        if (context.mounted) {
+          Flushbar(
+            message:
+                'İşlem sırasında hata oluştu: ${response.statusCode} ${response.body}',
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        Flushbar(
+          message: 'Bir hata oluştu: $e',
+          duration: const Duration(seconds: 3),
+        ).show(context);
+      }
+    }
+
+    // Add a return statement here
+    return [];
   }
 
   Future<void> deleteData(

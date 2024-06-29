@@ -18,12 +18,32 @@ class Medicine {
   final String? category;
   List<TimeOfDay> times;
   final int repeat;
+
   Medicine({
     required this.times,
     required this.repeat,
     required this.name,
     this.category,
   });
+
+  factory Medicine.fromJson(Map<String, dynamic> json) {
+    return Medicine(
+      name: json['name'],
+      category: json['category'],
+      times: List<TimeOfDay>.from(json['times'].map((x) => TimeOfDay(
+          hour: int.parse(x.split(":")[0]),
+          minute: int.parse(x.split(":")[1])))),
+      repeat: json['repeat'],
+    );
+  }
+
+  List<String> getTimesAsIso8601String(DateTime referenceDate) {
+    return times.map((time) {
+      final dateTime = DateTime(referenceDate.year, referenceDate.month,
+          referenceDate.day, time.hour, time.minute);
+      return dateTime.toUtc().toIso8601String();
+    }).toList();
+  }
 }
 
 class Pharmacy {

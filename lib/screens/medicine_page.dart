@@ -1,5 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:e_czane/constants.dart';
+import 'package:e_czane/services/api_service.dart';
+import 'package:e_czane/services/cache_service.dart';
 import 'package:e_czane/widgets/eczane_appbar.dart';
 import 'package:e_czane/widgets/eczane_numericfield.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
@@ -36,12 +38,13 @@ class _MedicinePageState extends State<MedicinePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     EczaneTextField(
-                        onChanged: (value) {
-                          name = value;
-                        },
-                        hint: 'İlaç Adı',
-                        width: DeviceSize.width * 0.5,
-                        height: DeviceSize.height * 0.05),
+                      onChanged: (value) {
+                        name = value;
+                      },
+                      hint: 'İlaç Adı',
+                      width: DeviceSize.width * 0.5,
+                      height: DeviceSize.height * 0.05,
+                    ),
                     eczaneSmallPadding,
                     const Text('Tekrar Sayısı',
                         style: TextStyle(fontFamily: 'inter', fontSize: 20)),
@@ -78,12 +81,13 @@ class _MedicinePageState extends State<MedicinePage> {
                       );
                     })),
                     EczaneTextField(
-                        onChanged: (value) {
-                          category = value;
-                        },
-                        hint: 'Kategori',
-                        width: DeviceSize.width * 0.5,
-                        height: DeviceSize.height * 0.05),
+                      onChanged: (value) {
+                        category = value;
+                      },
+                      hint: 'Kategori',
+                      width: DeviceSize.width * 0.5,
+                      height: DeviceSize.height * 0.05,
+                    ),
                   ],
                 ),
               ),
@@ -95,24 +99,25 @@ class _MedicinePageState extends State<MedicinePage> {
                   },
                 ),
                 TextButton(
-                    child: const Text('Ekle'),
-                    onPressed: () {
-                      if (name.isNotEmpty && repeat > 0) {
-                        Navigator.of(context).pop(
-                          Medicine(
-                            name: name,
-                            repeat: repeat,
-                            times: times,
-                            category: category,
-                          ),
-                        );
-                      } else if (name.isEmpty) {
-                        Flushbar(
-                          message: 'İlaç adı boş olamaz',
-                          duration: const Duration(seconds: 3),
-                        ).show(context);
-                      }
-                    }),
+                  child: const Text('Ekle'),
+                  onPressed: () {
+                    if (name.isNotEmpty && repeat > 0) {
+                      Navigator.of(context).pop(
+                        Medicine(
+                          name: name,
+                          repeat: repeat,
+                          times: times,
+                          category: category,
+                        ),
+                      );
+                    } else if (name.isEmpty) {
+                      Flushbar(
+                        message: 'İlaç adı boş olamaz',
+                        duration: const Duration(seconds: 3),
+                      ).show(context);
+                    }
+                  },
+                ),
               ],
             );
           },
@@ -121,6 +126,29 @@ class _MedicinePageState extends State<MedicinePage> {
     );
 
     if (medicine != null) {
+      final DateTime referenceDate =
+          DateTime.now(); // You can customize this to any reference date
+      final List<String> iso8601Times =
+          medicine.getTimesAsIso8601String(referenceDate);
+
+      final payload = {
+        'med_name': medicine.name,
+        'med_repeat': medicine.repeat.toString(),
+        'med_times': iso8601Times,
+        'med_category': medicine.category ?? '',
+        'tcId': readHive('tcId'),
+      };
+
+      print(payload); // Debugging print statement
+
+      ApiService().postDataWithToken(
+        payload,
+        readHive('accessToken'),
+        () {},
+        () {},
+        'api/Medicine',
+        context,
+      );
       setState(() {
         medicines.add(medicine);
       });

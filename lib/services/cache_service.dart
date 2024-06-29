@@ -7,6 +7,16 @@ void writeHive(String accessToken, String refreshToken) {
   _tokenBox.put('refreshToken', refreshToken);
 }
 
+void writeUserToHive(String id, String name, String surname, String email,
+    String tcId, String dateOfBirth) {
+  _tokenBox.put('id', id);
+  _tokenBox.put('name', name);
+  _tokenBox.put('surname', surname);
+  _tokenBox.put('email', email);
+  _tokenBox.put('tcId', tcId);
+  _tokenBox.put('dateOfBirth', dateOfBirth);
+}
+
 readHive(String key) {
   print(_tokenBox.get(key));
   return _tokenBox.get(key);

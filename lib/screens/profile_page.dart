@@ -35,6 +35,7 @@ class _EczaneProfilePageState extends State<EczaneProfilePage> {
         tc = data['tcId'];
         birth = data['dateOfBirth'];
       });
+      writeUserToHive(id, name, surname, email, tc, birth);
     }, () {
       Navigator.popAndPushNamed(context, '/LoginPage');
     }, context);

@@ -47,6 +47,13 @@ class EczaneLoginPage extends StatelessWidget {
                   }, (data) {
                     deleteHive('accessToken');
                     deleteHive('refreshToken');
+                    deleteHive('id');
+                    deleteHive('name');
+                    deleteHive('surname');
+                    deleteHive('email');
+                    deleteHive('email');
+                    deleteHive('tcId');
+                    deleteHive('dateOfBirth');
                     Navigator.popAndPushNamed(context, "/MyHomePage");
                     writeHive(data['accesToken'], data['refreshToken']);
                   }, "api/Auth/CreateToken/", context);
