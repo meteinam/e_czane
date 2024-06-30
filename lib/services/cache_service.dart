@@ -18,7 +18,6 @@ void writeUserToHive(String id, String name, String surname, String email,
 }
 
 readHive(String key) {
-  print(_tokenBox.get(key));
   return _tokenBox.get(key);
 }
 

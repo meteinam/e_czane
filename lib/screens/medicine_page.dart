@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:e_czane/constants.dart';
 import 'package:e_czane/services/api_service.dart';
 import 'package:e_czane/services/cache_service.dart';
+import 'package:e_czane/services/notification_service.dart';
 import 'package:e_czane/widgets/eczane_appbar.dart';
 import 'package:e_czane/widgets/eczane_numericfield.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
@@ -117,6 +118,30 @@ class _MedicinePageState extends State<MedicinePage> {
                   child: const Text('Ekle'),
                   onPressed: () {
                     if (name.isNotEmpty && repeat > 0) {
+                      int i;
+                      for (i = 0; i < repeat; i++) {
+                        NotificationHelper().showNotification(
+                          id: 0,
+                          title: name,
+                          body: 'İlacınızı almayı unutmayın!',
+                          scheduledTime: DateTime(
+                            DateTime.now().year,
+                            DateTime.now().month,
+                            DateTime.now().day,
+                            times[i].hour,
+                            times[i].minute,
+                          ),
+                        );
+                        print(
+                          DateTime(
+                            DateTime.now().year,
+                            DateTime.now().month,
+                            DateTime.now().day,
+                            times[i].hour,
+                            times[i].minute,
+                          ),
+                        );
+                      }
                       Navigator.of(context).pop(
                         Medicine(
                           name: name,

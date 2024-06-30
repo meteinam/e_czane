@@ -10,16 +10,19 @@ import 'package:e_czane/screens/profile_page.dart';
 import 'package:e_czane/screens/search_page.dart';
 import 'package:e_czane/screens/signup_page.dart';
 import 'package:e_czane/screens/welcome_page.dart';
+import 'package:e_czane/services/notification_service.dart';
 import 'package:e_czane/style/color.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   await Hive.initFlutter();
   // ignore: unused_local_variable
   var tokenBox = await Hive.openBox('tokenBox');
-
+  await NotificationHelper.initialize();
+  tz.initializeTimeZones();
   runApp(const MyApp());
 }
 

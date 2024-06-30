@@ -42,6 +42,12 @@ class Medicine {
       tcId: json['tcId'],
     );
   }
+  List<DateTime> getTimes() {
+    return times.map((time) {
+      final now = DateTime.now();
+      return DateTime(now.year, now.month, now.day, time.hour, time.minute);
+    }).toList();
+  }
 
   List<String> getTimesAsIso8601String(DateTime referenceDate) {
     return times.map((time) {
