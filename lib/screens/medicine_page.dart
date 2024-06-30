@@ -7,6 +7,7 @@ import 'package:e_czane/widgets/eczane_numericfield.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:e_czane/widgets/eczane_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MedicinePage extends StatefulWidget {
   const MedicinePage({super.key});
@@ -17,16 +18,18 @@ class MedicinePage extends StatefulWidget {
 
 class _MedicinePageState extends State<MedicinePage> {
   List<Medicine> medicines = [];
+  List<GetMedicine> getMedicines = [];
   @override
   void initState() {
+    super.initState();
     ApiService().getMedicineData('api/Medicine', readHive('accessToken'),
         (data) {
-      medicines = data;
-      setState(() {});
+      setState(() {
+        getMedicines = data;
+      });
     }, () {
       Navigator.popAndPushNamed(context, '/LoginPage');
     }, context);
-    super.initState();
   }
 
   void _addMedicine() async {
@@ -120,6 +123,7 @@ class _MedicinePageState extends State<MedicinePage> {
                           repeat: repeat,
                           times: times,
                           category: category,
+                          tcId: readHive('tcId'),
                         ),
                       );
                     } else if (name.isEmpty) {
@@ -154,9 +158,7 @@ class _MedicinePageState extends State<MedicinePage> {
         payload,
         readHive('accessToken'),
         () {
-          setState(() {
-            medicines.add(medicine);
-          });
+          setState(() {});
         },
         () {
           Navigator.popAndPushNamed(context, '/LoginPage');
@@ -167,10 +169,9 @@ class _MedicinePageState extends State<MedicinePage> {
     }
   }
 
-  void _removeMedicine(int index) {
-    setState(() {
-      medicines.removeAt(index);
-    });
+  _formatDate(DateTime time) {
+    String formattedTime = DateFormat('HH:mm').format(time);
+    return formattedTime;
   }
 
   @override
@@ -185,101 +186,116 @@ class _MedicinePageState extends State<MedicinePage> {
           Navigator.popAndPushNamed(context, '/MyHomePage');
         },
       ),
-      widget: ListView.builder(
-        itemCount: medicines.length,
-        itemBuilder: (context, index) {
-          final medicine = medicines[index];
-          return InkWell(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text(medicine.name),
-                    content: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('Tekrar Sayısı: ${medicine.repeat},'),
-                        ...medicine.times.map(
-                          (time) => Text('Zaman: ${time.format(context)}'),
-                        ),
-                        Text('Kategori: ${medicine.category}'),
-                      ],
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                          onPressed: () => showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text('İlaç Sil'),
-                                    content: Text(
-                                        '${medicine.name} ilacını silmek istediğinizden emin misiniz?'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text('İptal'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          ApiService().deleteData(
-                                              () {
-                                                _removeMedicine(index);
-                                                Navigator.of(context).pop();
-                                                Navigator.of(context).pop();
-                                              },
-                                              'api/Medicine/',
-                                              readHive('accessToken'),
-                                              index + 1,
-                                              () {
-                                                Navigator.popAndPushNamed(
-                                                  context,
-                                                  '/LoginPage',
-                                                );
-                                              },
-                                              context);
-                                        },
-                                        child: const Text('Sil'),
-                                      ),
-                                    ],
-                                  );
-                                },
+      widget: FutureBuilder<List<GetMedicine>>(
+          future: ApiService()
+              .getMedicineData('api/Medicine', readHive('accessToken'), (data) {
+            setState(() {
+              getMedicines = data;
+            });
+          }, () {
+            Navigator.popAndPushNamed(context, '/LoginPage');
+          }, context),
+          builder: (context, snapshot) {
+            return ListView.builder(
+              itemCount: getMedicines.length,
+              itemBuilder: (context, index) {
+                final medicine = getMedicines[index];
+                return InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text(medicine.name),
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('Tekrar Sayısı: ${medicine.repeat},'),
+                              ...medicine.times.map(
+                                (time) => Text('Zaman: ${_formatDate(time)}'),
                               ),
-                          child: const Text('Sil')),
-                      TextButton(
-                          onPressed: () {}, child: const Text('Düzenle')),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Kapat'),
+                              Text('Kategori: ${medicine.category}'),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                                onPressed: () => showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text('İlaç Sil'),
+                                          content: Text(
+                                              '${medicine.name} ilacını silmek istediğinizden emin misiniz?'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('İptal'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                ApiService().deleteData(
+                                                    () {
+                                                      // _removeMedicine(index);
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      setState(() {
+                                                        getMedicines
+                                                            .removeAt(index);
+                                                      });
+                                                    },
+                                                    'api/Medicine/',
+                                                    readHive('accessToken'),
+                                                    getMedicines[index].id,
+                                                    () {
+                                                      Navigator.popAndPushNamed(
+                                                        context,
+                                                        '/LoginPage',
+                                                      );
+                                                    },
+                                                    context);
+                                              },
+                                              child: const Text('Sil'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                child: const Text('Sil')),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Kapat'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Card(
+                    margin: const EdgeInsets.all(10.0),
+                    child: ListTile(
+                      title: Text(medicine.name),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Tekrar Sayısı: ${medicine.repeat},'),
+                          ...medicine.times.map(
+                              (time) => Text('Zaman: ${_formatDate(time)}')),
+                          Text('Kategori: ${medicine.category}'),
+                        ],
                       ),
-                    ],
-                  );
-                },
-              );
-            },
-            child: Card(
-              margin: const EdgeInsets.all(10.0),
-              child: ListTile(
-                title: Text(medicine.name),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Tekrar Sayısı: ${medicine.repeat},'),
-                    ...medicine.times
-                        .map((time) => Text('Zaman: ${time.format(context)}')),
-                    Text('Kategori: ${medicine.category}'),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          }),
     );
   }
 }

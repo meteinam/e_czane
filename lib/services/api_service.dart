@@ -89,8 +89,6 @@ class ApiService {
           ).show(context);
         }
       } else {
-        print(userData);
-        print(response.body);
         if (context.mounted) {
           Flushbar(
             message:
@@ -126,7 +124,6 @@ class ApiService {
 
       if (response.statusCode == 200) {
         Map<String, dynamic> userData = json.decode(response.body)['data'];
-        print(userData);
         success(userData);
       } else if (response.statusCode == 401) {
         unauthorized();
@@ -155,10 +152,10 @@ class ApiService {
     }
   }
 
-  Future<List<Medicine>> getMedicineData(
+  Future<List<GetMedicine>> getMedicineData(
       String endPoint,
       String token,
-      Function(List<Medicine> data) success,
+      Function(List<GetMedicine> data) success,
       void Function() unauthorized,
       BuildContext context) async {
     final url = Uri.parse(apiBaseUrl + endPoint);
@@ -172,8 +169,8 @@ class ApiService {
 
       if (response.statusCode == 200) {
         List<dynamic> responseData = json.decode(response.body)['data'];
-        List<Medicine> medicines =
-            responseData.map((json) => Medicine.fromJson(json)).toList();
+        List<GetMedicine> medicines =
+            responseData.map((json) => GetMedicine.fromJson(json)).toList();
         success(medicines);
         return medicines;
       } else if (response.statusCode == 401) {
@@ -185,7 +182,6 @@ class ApiService {
           ).show(context);
         }
       } else {
-        print(response.body);
         if (context.mounted) {
           Flushbar(
             message:
@@ -217,9 +213,12 @@ class ApiService {
     final client = _createIoClient();
 
     try {
-      final response = await client.delete(url);
+      final response = await client.delete(url, headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      });
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 204) {
         success();
       } else if (response.statusCode == 401) {
         unauthorized();

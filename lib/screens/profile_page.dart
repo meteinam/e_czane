@@ -6,6 +6,7 @@ import 'package:e_czane/style/text_sytle.dart';
 import 'package:e_czane/widgets/eczane_appbar.dart';
 import 'package:e_czane/widgets/eczane_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EczaneProfilePage extends StatefulWidget {
   const EczaneProfilePage({super.key});
@@ -21,7 +22,7 @@ class _EczaneProfilePageState extends State<EczaneProfilePage> {
   String surname = '';
   String email = '';
   String tc = '';
-  String birth = '';
+  String birth = '1969-07-20 20:18:04Z';
 
   @override
   void initState() {
@@ -39,6 +40,12 @@ class _EczaneProfilePageState extends State<EczaneProfilePage> {
     }, () {
       Navigator.popAndPushNamed(context, '/LoginPage');
     }, context);
+  }
+
+  _formatDate(String time) {
+    DateTime stringTime = DateTime.parse(time);
+    String formattedTime = DateFormat('d/M/y').format(stringTime);
+    return formattedTime;
   }
 
   @override
@@ -87,7 +94,7 @@ class _EczaneProfilePageState extends State<EczaneProfilePage> {
                     ),
                     eczaneMidPadding,
                     Text(
-                      "Doğum Tarihi: $birth",
+                      "Doğum Tarihi: ${_formatDate(birth)}",
                       style: blackTextStyleSmall,
                     ),
                   ],

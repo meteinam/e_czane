@@ -14,26 +14,32 @@ class DeviceSize {
 }
 
 class Medicine {
+  final int? id;
   final String name;
   final String? category;
   List<TimeOfDay> times;
   final int repeat;
+  final String tcId;
 
   Medicine({
     required this.times,
     required this.repeat,
     required this.name,
     this.category,
+    this.id,
+    required this.tcId,
   });
 
   factory Medicine.fromJson(Map<String, dynamic> json) {
     return Medicine(
+      id: json['id'],
       name: json['name'],
       category: json['category'],
       times: List<TimeOfDay>.from(json['times'].map((x) => TimeOfDay(
           hour: int.parse(x.split(":")[0]),
           minute: int.parse(x.split(":")[1])))),
       repeat: json['repeat'],
+      tcId: json['tcId'],
     );
   }
 
@@ -43,6 +49,37 @@ class Medicine {
           referenceDate.day, time.hour, time.minute);
       return dateTime.toUtc().toIso8601String();
     }).toList();
+  }
+}
+
+class GetMedicine {
+  final int id;
+  final String name;
+  final int repeat;
+  final List<DateTime> times;
+  final String category;
+  final String tcId;
+
+  GetMedicine({
+    required this.id,
+    required this.name,
+    required this.repeat,
+    required this.times,
+    required this.category,
+    required this.tcId,
+  });
+
+  factory GetMedicine.fromJson(Map<String, dynamic> json) {
+    return GetMedicine(
+      id: json['id'],
+      name: json['med_name'],
+      repeat: json['med_repeat'],
+      times: (json['med_times'] as List<dynamic>)
+          .map((e) => DateTime.parse(e as String))
+          .toList(),
+      category: json['med_category'] ?? '',
+      tcId: json['tcId'],
+    );
   }
 }
 
