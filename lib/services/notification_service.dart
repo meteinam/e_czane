@@ -36,7 +36,7 @@ class NotificationHelper {
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
-    print(scheduledDate);
+    // print(scheduledDate);
     return scheduledDate;
   }
 

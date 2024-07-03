@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:e_czane/constants.dart';
 import 'package:e_czane/services/api_service.dart';
 import 'package:e_czane/style/button_style.dart';
@@ -62,23 +63,23 @@ class _EczaneSignupPageState extends State<EczaneSignupPage> {
         eczaneSmallPadding,
         EczaneTextField(
           controller: nameController,
-          hint: "name",
+          hint: "İsim",
           width: 300,
           height: 35,
         ),
         eczaneSmallPadding,
         EczaneTextField(
           controller: surnameController,
-          hint: "surname",
+          hint: "Soyisim",
           width: 300,
           height: 35,
         ),
         eczaneSmallPadding,
         GestureDetector(
-            onTap: () {
-              _selectDate(context);
-            },
-            child: Container(
+          onTap: () {
+            _selectDate(context);
+          },
+          child: Container(
               width: 300,
               height: 35,
               decoration: BoxDecoration(
@@ -90,13 +91,15 @@ class _EczaneSignupPageState extends State<EczaneSignupPage> {
               ),
               child: Center(
                 child: Text(
-                    _formattedDate == "" ? "Date of Birth" : _formattedDate),
-              ),
-            )),
+                  _formattedDate == "" ? "Doğum Tarihi" : _formattedDate,
+                  style: const TextStyle(fontFamily: 'inter', fontSize: 18),
+                ),
+              )),
+        ),
         eczaneSmallPadding,
         EczaneTextField(
           controller: phoneNumController,
-          hint: "phone number",
+          hint: "Telefon Numarası",
           keyboardType: TextInputType.phone,
           width: 300,
           height: 35,
@@ -112,7 +115,7 @@ class _EczaneSignupPageState extends State<EczaneSignupPage> {
         eczaneSmallPadding,
         EczaneTextField(
           controller: passwordController,
-          hint: "password",
+          hint: "Şifre",
           isObscured: true,
           width: 300,
           height: 35,
@@ -120,7 +123,7 @@ class _EczaneSignupPageState extends State<EczaneSignupPage> {
         eczaneSmallPadding,
         EczaneTextField(
           controller: passwordAgainController,
-          hint: "password again",
+          hint: "Şifre Tekrarı",
           isObscured: true,
           width: 300,
           height: 35,
@@ -130,19 +133,26 @@ class _EczaneSignupPageState extends State<EczaneSignupPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             EczaneActionButton(
-                title: "Sign Up",
+                title: "Kayıt Ol",
                 onPressed: () async {
-                  await ApiService().postData({
-                    "tcId": tcNumController.text,
-                    "name": nameController.text,
-                    "surname": surnameController.text,
-                    "email": emailController.text,
-                    "dateOfBirth": _formattedDate,
-                    "phoneNumber": phoneNumController.text,
-                    "password": passwordController.text,
-                  }, (data) {
-                    Navigator.popAndPushNamed(context, "/LoginPage");
-                  }, "api/user/", context);
+                  if (passwordController.text == passwordAgainController.text) {
+                    await ApiService().postData({
+                      "tcId": tcNumController.text,
+                      "name": nameController.text,
+                      "surname": surnameController.text,
+                      "email": emailController.text,
+                      "dateOfBirth": _formattedDate,
+                      "phoneNumber": phoneNumController.text,
+                      "password": passwordController.text,
+                    }, (data) {
+                      Navigator.popAndPushNamed(context, "/LoginPage");
+                    }, "api/user/", context);
+                  } else {
+                    Flushbar(
+                      message: 'Şifre ve Şifre Tekrarı aynı olmalıdır!!',
+                      duration: const Duration(seconds: 3),
+                    ).show(context);
+                  }
                 },
                 style: button3),
           ],

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:another_flushbar/flushbar.dart';
 import 'package:e_czane/constants.dart';
 import 'package:e_czane/services/api_service.dart';
@@ -20,9 +22,28 @@ class MedicinePage extends StatefulWidget {
 class _MedicinePageState extends State<MedicinePage> {
   List<Medicine> medicines = [];
   List<GetMedicine> getMedicines = [];
+  var id;
+  var name;
+  var surname;
+  var email;
+  var tc;
+  var birth;
   @override
   void initState() {
     super.initState();
+    ApiService().getData("api/user/", readHive('accessToken'), (data) {
+      setState(() {
+        id = data['id'];
+        name = data['name'];
+        surname = data['surname'];
+        email = data['email'];
+        tc = data['tcId'];
+        birth = data['dateOfBirth'];
+      });
+      writeUserToHive(id, name, surname, email, tc, birth);
+    }, () {
+      Navigator.popAndPushNamed(context, '/LoginPage');
+    }, context);
     ApiService().getMedicineData('api/Medicine', readHive('accessToken'),
         (data) {
       setState(() {
@@ -132,15 +153,15 @@ class _MedicinePageState extends State<MedicinePage> {
                             times[i].minute,
                           ),
                         );
-                        print(
-                          DateTime(
-                            DateTime.now().year,
-                            DateTime.now().month,
-                            DateTime.now().day,
-                            times[i].hour,
-                            times[i].minute,
-                          ),
-                        );
+                        // print(
+                        //   DateTime(
+                        //     DateTime.now().year,
+                        //     DateTime.now().month,
+                        //     DateTime.now().day,
+                        //     times[i].hour,
+                        //     times[i].minute,
+                        //   ),
+                        // );
                       }
                       Navigator.of(context).pop(
                         Medicine(
@@ -189,6 +210,7 @@ class _MedicinePageState extends State<MedicinePage> {
           Navigator.popAndPushNamed(context, '/LoginPage');
         },
         'api/Medicine',
+        // ignore: use_build_context_synchronously
         context,
       );
     }

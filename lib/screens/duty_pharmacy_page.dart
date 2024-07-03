@@ -109,7 +109,7 @@ class _EczaneDutyPageState extends State<EczaneDutyPage> {
                     } else if (snapshot.hasError) {
                       return Center(child: Text('${snapshot.error}'));
                     }
-                    return Text('Bir hata oluştu');
+                    return const Text('Bir hata oluştu');
                   }),
             )
           ],

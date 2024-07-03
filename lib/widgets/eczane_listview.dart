@@ -25,7 +25,9 @@ class _EczaneListViewState extends State<EczaneListView> {
             ),
             GridViewButton(
               title: 'Nöbetçi Eczaneler',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.popAndPushNamed(context, '/DutyPharmacyPage');
+              },
             ),
           ],
         ),
