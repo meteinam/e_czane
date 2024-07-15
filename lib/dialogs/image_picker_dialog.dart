@@ -35,14 +35,14 @@ class _ImagePickerDialogState extends State<ImagePickerDialog> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 ElevatedButton(
                   onPressed: () async {
-                    image = await pickImageFromGallery();
+                    image = await pickAndCropImage(ImageSource.gallery);
                     setState(() {});
                   },
                   child: const Icon(Icons.image_rounded),
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    image = await pickImageFromCamera();
+                    image = await pickAndCropImage(ImageSource.camera);
                     setState(() {});
                   },
                   child: const Icon(Icons.camera_alt_rounded),
@@ -51,6 +51,7 @@ class _ImagePickerDialogState extends State<ImagePickerDialog> {
                   onPressed: () async {
                     if (image != null) {
                       text = await extractText(image!);
+                      print(text);
                       // ignore: use_build_context_synchronously
                       Navigator.pop(context, text);
                     } else {
