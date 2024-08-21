@@ -35,7 +35,7 @@ class _PharmacyNearbyPageState extends State<PharmacyNearbyPage> {
       return Future.error("location permisson is denied forever");
     }
     Position position = await Geolocator.getCurrentPosition();
-    const String apiKey = 'AIzaSyAqqkeUUJcw_6DqNVxf2shGh8xxCeWT6Z0';
+    const String apiKey = ''; //add api key here
     final double lat = position.latitude;
     final double lng = position.longitude;
     final String url =

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 const baseUrl =
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyAVRrvSmipcQ4Rh7dx-yjeRg3s5r0kSfTQ";
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key="; //add api key here
 final header = {
   "Content-Type": "application/json",
 };

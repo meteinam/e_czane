@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
           colorScheme: ColorScheme.fromSeed(seedColor: eczaneDarkRed),
           useMaterial3: true,
         ),
-        initialRoute: '/MyHomePage',
+        initialRoute: '/WelcomePage',
         routes: {
           '/MyHomePage': (context) => const MyHomePage(title: 'Eczane'),
           '/LoginPage': (context) => EczaneLoginPage(),
